@@ -1,0 +1,527 @@
+:root {
+  --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #ffe3e3 40%, #f3e5f5 100%);
+  --accent-pink: #ff758c;
+  --accent-glow: rgba(255, 117, 140, 0.4);
+  --text-dark: #4a3e3d;
+  --font-serif: 'Caveat', cursive;
+  --font-sans: 'Poppins', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-gradient);
+  color: var(--text-dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ==========================================
+   BACKGROUND CANVAS & PAGE TRANSITIONS
+========================================== */
+#particleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+  transform: translateY(20px);
+  z-index: 2;
+}
+
+.page.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.header-container {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.glow-title {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  color: var(--accent-pink);
+  text-shadow: 0 2px 10px rgba(255, 117, 140, 0.3);
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #7a6a69;
+  margin-bottom: 25px;
+}
+
+/* ==========================================
+   PAGE 1: GLASS CARD & LOGIN/PASSCODE
+========================================== */
+.glass-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  padding: 40px;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 15px 35px var(--accent-glow);
+  text-align: center;
+  max-width: 440px;
+  width: 100%;
+}
+
+.vintage-frame {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+
+.vintage-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.input-group input {
+  padding: 14px;
+  border: 2px solid #ffd3da;
+  border-radius: 14px;
+  outline: none;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.glow-btn {
+  background: var(--accent-pink);
+  color: #fff;
+  border: none;
+  padding: 14px;
+  border-radius: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 5px 15px var(--accent-glow);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.glow-btn:hover {
+  transform: translateY(-2px);
+}
+
+.feedback-text {
+  font-size: 0.85rem;
+  margin-top: 12px;
+  min-height: 20px;
+}
+
+.shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-10px); }
+  40%, 80% { transform: translateX(10px); }
+}
+
+/* ==========================================
+   PAGE 2: SIDE-BY-SIDE LAYOUT (JAR & SCRATCH CARD)
+========================================== */
+.p2-side-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  max-width: 950px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* LEFT SIDE: MAGIC JAR (Sole link to Page 3) */
+.jar-side {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.jar-container {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.jar {
+  width: 170px;
+  height: 240px;
+  position: relative;
+  animation: floatJar 3s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+
+.jar-glass {
+  width: 100%;
+  height: 100%;
+  border: 5px solid rgba(255, 255, 255, 0.95);
+  border-radius: 30px 30px 50px 50px;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+  position: relative;
+}
+
+.jar-lid {
+  width: 110px;
+  height: 22px;
+  background: #d4a373;
+  border-radius: 6px;
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 2px solid #fff;
+}
+
+.magic-note {
+  font-size: 3rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.jar-tag {
+  margin-top: 20px;
+  background: #fff;
+  padding: 6px 18px;
+  border-radius: 20px;
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.jar-container:hover .jar {
+  transform: scale(1.08);
+}
+
+@keyframes floatJar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* RIGHT SIDE: SCRATCH CARD & COUPON */
+.scratch-side {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scratch-card {
+  position: relative;
+  width: 280px;
+  height: 200px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+}
+
+.coupon-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #fff0f3 0%, #ffe3e8 100%);
+  border: 2px dashed var(--accent-pink);
+  border-radius: 20px;
+  text-align: center;
+  user-select: none;
+}
+
+.coupon-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+  background: var(--accent-pink);
+  padding: 4px 12px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.coupon-title {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--accent-pink);
+  line-height: 1.2;
+}
+
+.coupon-text {
+  font-size: 0.85rem;
+  color: var(--text-dark);
+  margin: 6px 0 10px;
+}
+
+.coupon-code {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #7a6a69;
+  border: 1px dashed var(--accent-pink);
+  padding: 3px 10px;
+  border-radius: 8px;
+}
+
+#scratchCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.scratch-hint {
+  font-size: 0.85rem;
+  color: #7a6a69;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+/* DECORATIVE FLOATING ELEMENTS */
+.decor {
+  position: absolute;
+  font-size: 3.5rem;
+  pointer-events: none;
+}
+.balloon.left { top: 15%; left: 10%; }
+.balloon.right { top: 20%; right: 10%; }
+.cake { bottom: 10%; right: 15%; }
+
+/* ==========================================
+   PAGE 3: ROMANTIC LETTER & POLAROID GALLERY
+========================================== */
+.romantic-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  max-width: 1100px;
+  width: 100%;
+}
+
+.photo-hangers,
+.photo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.polaroid-hanger,
+.polaroid-pin {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, z-index 0.3s ease;
+  padding-top: 10px;
+}
+
+.clip {
+  font-size: 0.9rem;
+  margin-top: -8px;
+  z-index: 3;
+}
+
+.pin-red {
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.4rem;
+  z-index: 10;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+.pin-gold {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.6rem;
+  z-index: 10;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+.polaroid {
+  background: #ffffff;
+  padding: 12px 12px 18px 12px;
+  border-radius: 4px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  width: 135px;
+  text-align: center;
+}
+
+.polaroid img {
+  width: 100%;
+  height: 115px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.caption {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  display: block;
+  margin-top: 8px;
+  color: var(--text-dark);
+}
+
+/* POLAROID TILTS & HOVER EFFECTS */
+.swing-1, .tilt-left { transform: rotate(-4deg); }
+.swing-2, .tilt-right { transform: rotate(5deg); }
+.swing-3, .tilt-left-sm { transform: rotate(-2deg); }
+.tilt-right-sm { transform: rotate(3deg); }
+
+.polaroid-hanger:hover,
+.polaroid-pin:hover {
+  transform: scale(1.1) rotate(0deg) !important;
+  z-index: 20;
+}
+
+.paper-card {
+  background: #fffdf9;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  position: relative;
+  border: 1px solid #f2e9d8;
+}
+
+.pin {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+}
+
+.letter-heading {
+  font-family: var(--font-serif);
+  font-size: 2.6rem;
+  color: var(--accent-pink);
+  margin-bottom: 15px;
+}
+
+.letter-content p {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.letter-sign {
+  margin-top: 20px;
+  text-align: right;
+}
+
+/* ==========================================
+   MODAL POPUP
+========================================== */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-body {
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  max-width: 90%;
+  max-height: 85vh;
+  text-align: center;
+  position: relative;
+}
+
+.modal-body img {
+  max-width: 100%;
+  max-height: 70vh;
+  border-radius: 8px;
+}
+
+.modal-caption {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  margin-top: 10px;
+}
+
+.close-btn {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  background: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* ==========================================
+   RESPONSIVE BREAKPOINTS
+========================================== */
+@media (max-width: 768px) {
+  .romantic-layout {
+    grid-template-columns: 1fr;
+  }
+  .p2-side-layout {
+    flex-direction: column;
+    gap: 30px;
+  }
+}

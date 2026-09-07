@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday, Baby ❤️</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- PAGE 1: THE SURPRISE BEGINS -->
+  <section id="page1" class="page active">
+    <div class="glass-card fade-in">
+      
+      <div class="vintage-frame">
+        <img src="images/childhood.jpeg" alt="Childhood photo" id="childhoodImg">
+        <div class="sparkle-overlay"></div>
+      </div>
+
+      <h1 class="glow-title">Happy Birthday, Baby ❤️</h1>
+      <p class="subtitle">I have a little surprise for you...</p>
+
+      <form id="passwordForm" onsubmit="event.preventDefault(); checkPassword();">
+        <label for="passInput">Enter the secret password 💌</label>
+        <div class="input-group">
+          <input type="password" id="passInput" placeholder="Secret password..." autocomplete="off">
+          <button type="submit" id="unlockBtn" class="glow-btn">
+            Unlock Surprise <span class="lock-icon">🔒</span>
+          </button>
+        </div>
+        <p id="errorFeedback" class="feedback-text"></p>
+      </form>
+
+    </div>
+  </section>
+
+  <!-- PAGE 2: JAR ON LEFT & CROSSWORD ON RIGHT -->
+  <div class="page" id="page2">
+  <div class="header-container">
+    <h2 class="glow-title">A Little Magic for You</h2>
+    <p class="subtitle">Tap the jar to see your special memories, or scratch the card on the right!</p>
+  </div>
+
+  <div class="p2-side-layout">
+    <!-- LEFT SIDE: MAGIC JAR (Only way to advance to Page 3) -->
+    <div class="jar-side">
+      <div class="jar-container" onclick="goToPage(3)">
+        <div class="jar">
+          <div class="jar-lid"></div>
+          <div class="jar-glass">
+            <span class="magic-note">💌</span>
+          </div>
+        </div>
+        <div class="jar-tag">Tap Jar to Open Memories ✨</div>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE: SCRATCH CARD WITH COUPON -->
+    <div class="scratch-side">
+      <div class="scratch-card">
+        <!-- Hidden Coupon Revealed Upon Scratching -->
+        <div class="coupon-content">
+          <div class="coupon-badge">OFFICIAL COUPON</div>
+          <h3 class="coupon-title">Unlimited Kisses & Hugs</h3>
+          <p class="coupon-text">Redeemable anytime, anywhere! 💖</p>
+          <div class="coupon-code">CODE: LOVE-FOREVER</div>
+        </div>
+
+        <!-- Canvas Covering the Coupon -->
+        <canvas id="scratchCanvas" width="280" height="200"></canvas>
+      </div>
+      <p class="scratch-hint">✨ Drag across the card to scratch & reveal!</p>
+    </div>
+  </div>
+</div>
+
+  <!-- PAGE 3: OUR LITTLE WORLD -->
+  <section id="page3" class="page">
+    <div class="romantic-layout">
+      
+      <!-- LEFT SIDE: Pinned Polaroid Photos -->
+      <div class="gallery-side">
+        <div class="photo-grid">
+          
+          <div class="polaroid-pin tilt-left" onclick="openLightbox('images/us2.jpeg', 'Our first memory ❤️')">
+            <div class="pin-red">📌</div>
+            <div class="polaroid">
+              <img src="images/us2.jpeg" alt="Memory 1">
+              <span class="caption">Our first memory ❤️</span>
+            </div>
+          </div>
+
+          <div class="polaroid-pin tilt-right" onclick="openLightbox('images/us1.jpeg', 'That day... ✨')">
+            <div class="pin-red">📌</div>
+            <div class="polaroid">
+              <img src="images/us1.jpeg" alt="Memory 2">
+              <span class="caption">One fine evening... ✨</span>
+            </div>
+          </div>
+
+          <div class="polaroid-pin tilt-left-sm" onclick="openLightbox('images/us3.jpeg', 'Us 🫶')">
+            <div class="pin-red">📌</div>
+            <div class="polaroid">
+              <img src="images/us3.jpeg" alt="Memory 3">
+              <span class="caption">Us 🫶</span>
+            </div>
+          </div>
+
+          <div class="polaroid-pin tilt-right-sm" onclick="openLightbox('images/us4.jpeg', 'My favorite smile 🥰')">
+            <div class="pin-red">📌</div>
+            <div class="polaroid">
+              <img src="images/us4.jpeg" alt="Memory 4">
+              <span class="caption">My favorite smile 🥰</span>
+            </div>
+          </div>
+
+          <div class="polaroid-pin tilt-left" onclick="openLightbox('images/us5.jpeg', 'Forever with you ❤️')">
+            <div class="pin-red">📌</div>
+            <div class="polaroid">
+              <img src="images/us5.jpeg" alt="Memory 5">
+              <span class="caption">Forever with you ❤️</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE: Handwritten Love Letter -->
+      <div class="letter-side">
+        <div class="paper-card">
+          <div class="pin-gold">📌</div>
+          <h2 class="letter-heading">For You, Pattani ❤️</h2>
+          <div class="letter-content">
+            <p>Happiest Birthday Thangameyy💕</p>
+            <p>I am very grateful and beyond happy for meeting you and making beautiful memories with you.Also some naughty ones😜</p>
+            <p>My baby boy u turned 20 today!! Still we have got many more years in our hands learning each other and the best part is we get to explore the world together. </p>
+            <p>I always want you to be happy and I forever want to play a small role in keeping that smile on ur face.</p>
+            <p>I want you to be the same energetic, clumsy, funny, sweety,hottie🥵, cutiee boy u have been since i have known you.</p>
+            <p class="letter-sign">Happy Birthday my delicious chocolate flavoured pancake❤️<br><span>— Yours</span></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Lightbox Modal (Added here so clicking photos enlarges them) -->
+  <div id="lightbox" class="modal" onclick="closeLightbox()">
+    <div class="modal-body" onclick="event.stopPropagation()">
+      <span class="close-btn" onclick="closeLightbox()">&times;</span>
+      <img id="modalImg" src="" alt="Enlarged photo">
+      <p id="modalCaption" class="modal-caption"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
